@@ -1,4 +1,6 @@
 # DALLE
+<img width="1284" alt="Screenshot 2023-05-13 at 5 14 11 PM" src="https://github.com/shylabo/dalle/assets/41677855/7995a10f-4c8a-4d53-a1a6-71f369ce2956">
+<img width="1274" alt="Screenshot 2023-05-13 at 5 14 32 PM" src="https://github.com/shylabo/dalle/assets/41677855/d370e9fc-6c4b-47e2-8b9a-6e5ad9384230">
 
 # Tech stack
 
