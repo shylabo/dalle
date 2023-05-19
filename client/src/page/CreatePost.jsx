@@ -1,35 +1,35 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { preview } from '../assets';
-import { getRandomPrompt } from '../utils';
-import { FormField, Loader } from '../components';
+import { preview } from '../assets'
+import { getRandomPrompt } from '../utils'
+import { FormField, Loader } from '../components'
 
 const CreatePost = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const [form, setForm] = useState({
     name: '',
     prompt: '',
     photo: '',
-  });
+  })
 
-  const [generatingImg, setGeneratingImg] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [generatingImg, setGeneratingImg] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
   const handleSurpriseMe = () => {
-    const randomPrompt = getRandomPrompt(form.prompt);
-    setForm({ ...form, prompt: randomPrompt });
-  };
+    const randomPrompt = getRandomPrompt(form.prompt)
+    setForm({ ...form, prompt: randomPrompt })
+  }
 
   const generateImage = async () => {
     if (form.prompt) {
       try {
-        setGeneratingImg(true);
+        setGeneratingImg(true)
         // const response = await fetch('https://dalle-arbb.onrender.com/api/v1/dalle', {
-        const response = await fetch('http://localhost:8080/api/v1/dalle', {
+        const response = await fetch('https://dalle-r7kc.onrender.com/api/v1/dalle', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -37,46 +37,46 @@ const CreatePost = () => {
           body: JSON.stringify({
             prompt: form.prompt,
           }),
-        });
+        })
 
-        const data = await response.json();
-        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+        const data = await response.json()
+        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` })
       } catch (err) {
-        alert(err);
+        alert(err)
       } finally {
-        setGeneratingImg(false);
+        setGeneratingImg(false)
       }
     } else {
-      alert('Please provide proper prompt');
+      alert('Please provide proper prompt')
     }
-  };
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (form.prompt && form.photo) {
-      setLoading(true);
+      setLoading(true)
       try {
-        const response = await fetch('http://localhost:8080/api/v1/post', {
+        const response = await fetch('https://dalle-r7kc.onrender.com/api/v1/post', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ ...form }),
-        });
+        })
 
-        await response.json();
-        alert('Success');
-        navigate('/');
+        await response.json()
+        alert('Success')
+        navigate('/')
       } catch (err) {
-        alert(err);
+        alert(err)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     } else {
-      alert('Please generate an image with proper details');
+      alert('Please generate an image with proper details')
     }
-  };
+  }
 
   return (
     <section className="max-w-7xl mx-auto">
@@ -113,7 +113,11 @@ const CreatePost = () => {
             {form.photo ? (
               <img src={form.photo} alt={form.prompt} className="w-full h-full object-contain" />
             ) : (
-              <img src={preview} alt="preview" className="w-9/12 h-9/12 object-contain opacity-40" />
+              <img
+                src={preview}
+                alt="preview"
+                className="w-9/12 h-9/12 object-contain opacity-40"
+              />
             )}
 
             {generatingImg && (
@@ -136,7 +140,8 @@ const CreatePost = () => {
 
         <div className="mt-10">
           <p className="mt-2 text-[#666e75] text-[14px]">
-            ** Once you have created the image you want, you can share it with others in the community **
+            ** Once you have created the image you want, you can share it with others in the
+            community **
           </p>
           <button
             type="submit"
@@ -147,7 +152,7 @@ const CreatePost = () => {
         </div>
       </form>
     </section>
-  );
-};
+  )
+}
 
-export default CreatePost;
+export default CreatePost
